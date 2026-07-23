@@ -1,1 +1,1 @@
-A web UI software theramin that is controlled by sliders.
+A web UI software theremin that is controlled by sliders.
