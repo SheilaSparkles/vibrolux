@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>VIBROLUX</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <meta name="theme-color" content="#1a1a2e">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header with Brand -->
+        <header class="header">
+            <h1 class="brand-name">VIBROLUX</h1>
+        </header>
+
+        <!-- Oscilloscope Display -->
+        <div class="scope-wrapper">
+            <canvas id="oscilloscope" class="oscilloscope"></canvas>
+        </div>
+
+        <!-- Main Sliders -->
+        <div class="sliders-wrapper">
+            <div class="slider-group">
+                <label class="slider-label">PITCH</label>
+                <input type="range" id="pitch-slider" class="vertical-slider" 
+                       min="0" max="100" value="50" orientation="vertical">
+            </div>
+            <div class="slider-group">
+                <label class="slider-label">VOLUME</label>
+                <input type="range" id="volume-slider" class="vertical-slider" 
+                       min="0" max="100" value="70" orientation="vertical">
+            </div>
+        </div>
+
+        <!-- Effects Knobs -->
+        <div class="knobs-wrapper">
+            <div class="knob-group">
+                <div class="knob" id="vibrato-knob" data-effect="vibrato">
+                    <svg viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="45" fill="#2a2a3a" stroke="#4a4a5a" stroke-width="3"/>
+                        <line x1="50" y1="50" x2="50" y2="15" stroke="#ffffff" stroke-width="4" id="vibrato-indicator"/>
+                    </svg>
+                </div>
+                <span class="knob-label">VIBRATO</span>
+            </div>
+            <div class="knob-group">
+                <div class="knob" id="tremolo-knob" data-effect="tremolo">
+                    <svg viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="45" fill="#2a2a3a" stroke="#4a4a5a" stroke-width="3"/>
+                        <line x1="50" y1="50" x2="50" y2="15" stroke="#ffffff" stroke-width="4" id="tremolo-indicator"/>
+                    </svg>
+                </div>
+                <span class="knob-label">TREMOLO</span>
+            </div>
+            <div class="knob-group">
+                <div class="knob" id="reverb-knob" data-effect="reverb">
+                    <svg viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="45" fill="#2a2a3a" stroke="#4a4a5a" stroke-width="3"/>
+                        <line x1="50" y1="50" x2="50" y2="15" stroke="#ffffff" stroke-width="4" id="reverb-indicator"/>
+                    </svg>
+                </div>
+                <span class="knob-label">REVERB</span>
+            </div>
+        </div>
+
+        <!-- Record Button -->
+        <button id="record-btn" class="record-btn">
+            <span class="record-dot"></span>
+            <span class="record-text">REC</span>
+        </button>
+        
+        <div id="status-message" class="status-message"></div>
+    </div>
+
+    <script src="js/audio-engine.js"></script>
+</body>
+</html>

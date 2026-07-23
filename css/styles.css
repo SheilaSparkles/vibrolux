@@ -1,0 +1,388 @@
+/* Reset and base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Segoe UI', -apple-system, sans-serif;
+    background: #0d0d1a;
+    color: #ffffff;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background: linear-gradient(135deg, #1a4d3a 0%, #0a2a20 50%, #1a4d3a 100%);
+    position: relative;
+}
+
+/* Wood texture overlay */
+.app-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noise"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%" height="100%" filter="url(%23noise)" opacity="0.08"/%3E%3C/svg%3E');
+    pointer-events: none;
+    z-index: 0;
+}
+
+.header {
+    position: relative;
+    z-index: 10;
+    margin-bottom: 20px;
+}
+
+.brand-name {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: 900;
+    letter-spacing: 8px;
+    text-shadow: 
+        0 0 20px rgba(109, 79, 255, 0.8),
+        0 0 40px rgba(109, 79, 255, 0.4),
+        2px 2px 4px rgba(0,0,0,0.5);
+    color: #e0e0e0;
+    font-family: 'Courier New', monospace;
+}
+
+.scope-wrapper {
+    position: relative;
+    z-index: 10;
+    margin-bottom: 25px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 
+        0 0 30px rgba(109, 79, 255, 0.3),
+        inset 0 0 20px rgba(0,0,0,0.5);
+    border: 2px solid #4a4a5a;
+}
+
+.oscilloscope {
+    width: clamp(280px, 80vw, 500px);
+    height: clamp(100px, 25vw, 150px);
+    background: #1a1a2e;
+    display: block;
+}
+
+.sliders-wrapper {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    gap: 60px;
+    margin-bottom: 30px;
+}
+
+.slider-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.slider-label {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    color: #c0c0d0;
+    font-weight: 600;
+}
+
+.vertical-slider {
+    appearance: none;
+    width: 20px;
+    height: clamp(180px, 45vh, 240px);
+    background: linear-gradient(to top, #1a1a2e 0%, #2a2a3a 100%);
+    border-radius: 10px;
+    outline: none;
+    border: 2px solid #4a4a5a;
+}
+
+.vertical-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 24px;
+    height: 40px;
+    background: #6d4aff;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(109, 79, 255, 0.8);
+}
+
+.vertical-slider::-moz-range-thumb {
+    width: 24px;
+    height: 40px;
+    background: #6d4aff;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 0 15px rgba(109, 79, 255, 0.8);
+}
+
+.knobs-wrapper {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    gap: 40px;
+    margin-bottom: 25px;
+}
+
+.knob-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.knob {
+    width: 70px;
+    height: 70px;
+    cursor: grab;
+    position: relative;
+    touch-action: none;
+}
+
+.knob:active {
+    cursor: grabbing;
+}
+
+.knob svg {
+    width: 100%;
+    height: 100%;
+}
+
+#vibrato-indicator,
+#tremolo-indicator,
+#reverb-indicator {
+    transform-origin: 50% 50%;
+}
+
+.knob-label {
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+    margin-top: 8px;
+    color: #a0a0b0;
+    font-weight: 500;
+}
+
+.record-btn {
+    position: relative;
+    z-index: 10;
+    background: linear-gradient(145deg, #2a1a2a, #1a0a1a);
+    border: 2px solid #6d4aff;
+    border-radius: 50px;
+    padding: 12px 28px;
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.record-btn:hover {
+    background: linear-gradient(145deg, #3a2a3a, #2a1a2a);
+    box-shadow: 0 0 20px rgba(109, 79, 255, 0.6);
+}
+
+.record-btn.recording {
+    background: #ff2a40;
+    border-color: #ff2a40;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.record-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ff2a40;
+    display: none;
+}
+
+.record-btn.recording .record-dot {
+    display: inline-block;
+}
+
+.status-message {
+    position: relative;
+    z-index: 10;
+    margin-top: 15px;
+    font-size: 0.7rem;
+    color: #808090;
+    min-height: 20px;
+}
+
+/* Mobile optimization */
+@media (max-width: 500px) {
+    .sliders-wrapper {
+        gap: 30px;
+    }
+    
+    .knobs-wrapper {
+        gap: 20px;
+    }
+    
+    .knob {
+        width: 55px;
+        height: 55px;
+    }
+    
+    .brand-name {
+        letter-spacing: 4px;
+    }
+}
+/* Force vertical slider appearance */
+.vertical-slider {
+    writing-mode: bt-lr; /* IE/Edge */
+    -webkit-appearance: slider-vertical; /* Safari/Chrome */
+    appearance: slider-vertical;
+
+    
+/* CRITICAL FIX: Allow clicks through SVG to reach the knob div */
+.knob svg {
+    pointer-events: none; /* This lets clicks pass through SVG */
+}
+
+.knob {
+    cursor: grab;
+    touch-action: none; /* Prevent scrolling while dragging on touch */
+}
+
+.knob:active {
+    cursor: grabbing;
+}
+/* === TABLET OPTIMIZATION (400-900px) === */
+@media (max-width: 900px) and (min-width: 401px) {
+    .sliders-wrapper {
+        gap: 30px;
+    }
+    
+    .knobs-wrapper {
+        gap: 25px;
+    }
+    
+    .brand-name {
+        font-size: 2rem;
+        letter-spacing: 4px;
+    }
+    
+    .knob {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+/* === MOBILE OPTIMIZATION (< 400px) === */
+@media (max-width: 400px) {
+    .sliders-wrapper {
+        gap: 20px;
+    }
+    
+    .knobs-wrapper {
+        gap: 15px;
+    }
+    
+    .brand-name {
+        font-size: 1.5rem;
+        letter-spacing: 2px;
+    }
+    
+    .knob {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .vertical-slider {
+        width: 16px;
+        height: 150px;
+    }
+    
+    .record-btn {
+        padding: 10px 20px;
+        font-size: 0.75rem;
+    }
+}
+
+/* === LANDSCAPE MODE (tablets in horizontal) === */
+@media (orientation: landscape) and (max-height: 600px) {
+    .app-container {
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+    
+    .scope-wrapper {
+        margin-bottom: 0;
+        margin-right: 20px;
+    }
+    
+    .sliders-wrapper,
+    .knobs-wrapper {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .vertical-slider {
+        width: 100px;
+        height: 20px;
+        -webkit-appearance: slider-horizontal;
+        appearance: slider-horizontal;
+        writing-mode: horizontal-tb;
+    }
+    
+    .slider-label {
+        margin-bottom: 0;
+        margin-right: 10px;
+    }
+}
+
+/* === PREVENT TEXT SELECTION (important for touch) === */
+.knob,
+.vertical-slider,
+.record-btn {
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+/* Larger touch targets for mobile */
+@media (hover: none) and (pointer: coarse) {
+    .vertical-slider::-webkit-slider-thumb {
+        width: 30px;
+        height: 50px;
+    }
+    
+    .knob {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+/* Horizontal sliders in landscape */
+@media (orientation: landscape) {
+    .vertical-slider {
+        writing-mode: horizontal-tb;
+        -webkit-appearance: slider;
+        appearance: slider;
+        width: 200px !important;
+        height: 20px !important;
+        transform: none !important;
+    }
+    
+    .slider-group {
+        flex-direction: row;
+        align-items: center;
+    }
+}
